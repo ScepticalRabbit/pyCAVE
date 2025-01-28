@@ -15,12 +15,12 @@ from dev_rigidbodymotion import RigidBodyMotion
 
 def main() -> None:
     # Making Blender scene
-    data_path = Path('src/pyvale/simcases/case23_out.e')
+    data_path = Path('src/pyvale/data/case18_1_out.e')
     data_reader = mh.ExodusReader(data_path)
     sim_data = data_reader.read_all_sim_data()
 
     dir = Path.cwd() / 'dev/lsdev/blender_files'
-    filename = 'case23.blend'
+    filename = 'case18.blend'
     filepath = dir / filename
     all_files = os.listdir(dir)
     for ff in all_files:
@@ -33,41 +33,44 @@ def main() -> None:
 
     part_location = (0, 0, 0)
     angle = np.radians(90)
-    part_rotation = (0, 0, angle)
+    part_rotation = (0, 0, 0)
 
     part, pv_surf, spat_dim, components = scene.add_part(sim_data=sim_data)
     scene.set_part_location(part, part_location)
     scene.set_part_rotation(part, part_rotation)
 
     mat_data = MaterialData()
-    image_path = '/home/lorna/speckle_generator/images/blender_image_texture_rad2.tiff'
+    image_path = '/home/lorna/pyvale/src/pyvale/data/optspeckle_2464x2056px_spec5px_8bit_gblur1px.tiff'
     mat = scene.add_material(mat_data, part, image_path)
 
     sensor_px = (2464, 2056)
-    cam_position = (0, 0, 600)
+    cam_position = (0, 0, 350)
     focal_length = 25.0
     cam_data = CameraData(sensor_px=sensor_px,
                           position=cam_position,
-                          focal_length=focal_length)
+                          focal_length=focal_length,
+                          part_dimension=part.dimensions)
 
     camera = scene.add_camera(cam_data)
 
     type = LightType.POINT
     light_position = (0, 0, 200)
-    energy = 500 * (10)**3
+    energy = 600 * (10)**3
     light_data = LightData(type=type,
                            position=light_position,
-                           energy=energy)
+                           energy=energy,
+                           part_dimension=part.dimensions)
 
     light = scene.add_light(light_data)
 
     #---------------------------------------------------------------------------
     # Rendering images
-    image_path = Path.cwd() / 'dev/lsdev/rendered_images/RBM_x'
-    output_path = image_path / 'RBM-x.txt'
+    image_path = Path.cwd() / 'dev/lsdev/rendered_images/case18_gauss/non-gauss'
+    output_path = image_path / 'RBM.txt'
 
-    step = 0.07935 / 10
-    x_lims = [0, 0.07935]
+    step = 0.04485 / 10
+    x_max = 0.04485 + (step)
+    x_lims = [0, x_max]
     rigidbodymotion = RigidBodyMotion(part, step, part_location, image_path, output_path, cam_data)
     rigidbodymotion.rigid_body_motion_x(x_lims, part)
 

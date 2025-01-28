@@ -12,12 +12,12 @@ from dev_lightingblender import LightData, LightType
 from dev_objectmaterial import MaterialData
 
 def main() -> None:
-    data_path = Path('src/pyvale/simcases/case24_out.e')
+    data_path = Path('src/pyvale/simcases/case22_out.e')
     data_reader = mh.ExodusReader(data_path)
     sim_data = data_reader.read_all_sim_data()
 
     dir = Path.cwd() / 'dev/lsdev/blender_files'
-    filename = 'case24.blend'
+    filename = 'case22.blend'
     filepath = dir / filename
     all_files = os.listdir(dir)
     for ff in all_files:
@@ -29,10 +29,13 @@ def main() -> None:
     scene = BlenderScene()
 
     part_location = (0, 0, 0)
+    angle = np.radians(90)
+    part_rotation = (0, 0, 0)
     # meshfile = '/home/lorna/pyvale/test_output/test_mesh.stl'
 
-    part, pv_surf, spat_dim, components = scene.add_stl_part(sim_data=sim_data)
+    part, pv_surf, spat_dim, components = scene.add_part(sim_data=sim_data)
     scene.set_part_location(part=part, location=part_location)
+    scene.set_part_rotation(part=part, rotation=part_rotation)
     print(f"{part.data.attributes=}")
 
     mat_data = MaterialData()
@@ -41,11 +44,12 @@ def main() -> None:
     mat = scene.add_material(mat_data, part, image_path)
 
     sensor_px = (2464, 2056)
-    cam_position = (0, 0, 150)
+    cam_position = (0, 0, 500)
     focal_length = 15.0
     cam_data = CameraData(sensor_px=sensor_px,
                           position=cam_position,
-                          focal_length=focal_length)
+                          focal_length=focal_length,
+                          part_dimension=part.dimensions)
 
     camera = scene.add_camera(cam_data)
 

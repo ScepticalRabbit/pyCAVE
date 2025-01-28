@@ -41,7 +41,7 @@ def main() -> None:
 
 
     mat_data = MaterialData()
-    image_path = '/home/lorna/speckle_generator/images/blender_image_texture_rad2.tiff'
+    image_path = '/home/lorna/pyvale/src/pyvale/data/optspeckle_2464x2056px_spec5px_8bit_gblur1px.tiff'
     mat = scene.add_material(mat_data, part, image_path)
 
     sensor_px = (2452, 2056)
@@ -49,23 +49,25 @@ def main() -> None:
     focal_length = 25
     cam_data = CameraData(sensor_px=sensor_px,
                           position=cam_position,
-                          focal_length=focal_length)
+                          focal_length=focal_length,
+                          part_dimension=part.dimensions)
 
     camera = scene.add_camera(cam_data)
 
     type = LightType.POINT
     light_position = (0, 0, 200)
-    energy = 400 * (10)**3
+    energy = 600 * (10)**3
     light_data = LightData(type=type,
                            position=light_position,
-                           energy=energy)
+                           energy=energy,
+                           part_dimension=part.dimensions)
 
     light = scene.add_light(light_data)
 
     #---------------------------------------------------------------------------
     # Rendering images
     render_start_time = time.perf_counter()
-    image_path = Path.cwd() / 'dev/lsdev/rendered_images/case18_deformed'
+    image_path = Path.cwd() / 'dev/lsdev/rendered_images/case18_static/non-gauss'
     output_path = str(image_path) + '/' + name +'_report.txt'
 
 
@@ -76,15 +78,15 @@ def main() -> None:
                     cam_data=cam_data)
 
     render_counter = 0
-    render_name = 'ref_image'
-
-    render.render_image(render_name, render_counter, part)
+    for i in range(10):
+        render_name = 'static_image' + str(i)
+        render.render_image(render_name, render_counter, part)
 
     #---------------------------------------------------------------------------
     # Deform mesh
     timesteps = sim_data.time.shape[0]
     meshdeformer = DeformMesh(pv_surf, spat_dim, components)
-    nodes = centre_nodes(pv_surf.points)
+    nodes = pv_surf.points
 
 
     for timestep in range(1, timesteps):
@@ -98,7 +100,7 @@ def main() -> None:
             print(f"{part.dimensions=}")
 
             render_name = 'def_sim_data'
-            render.render_image(render_name, timestep, part)
+            # render.render_image(render_name, timestep, part)
             timestep += 1 # Adding at start of loop as timestep = 0 is the original mesh
 
 
