@@ -4,6 +4,8 @@
 .pyvale-env/
 
 # Output files
+*.npy
+*.dat
 *.png
 *.svg
 *.mp4
