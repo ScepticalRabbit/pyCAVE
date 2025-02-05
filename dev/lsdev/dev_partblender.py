@@ -10,49 +10,9 @@ class BlenderPart:
     """
     def __init__(self,
                  sim_data: SimData | None = None,
-                 elements:np.ndarray | None = None,
-                 nodes: np.ndarray | None = None,
                  filename: str | None = None):
         self.sim_data = sim_data
         self.filename = filename
-        self.elements = elements
-        self.nodes = nodes
-
-    def _initialise_nodes_elements(self, elements, nodes):
-        if elements is None:
-            self.elements = self._get_elements() * 1000
-        else:
-            self.elements = elements * 1000
-
-        if nodes is None:
-            self.nodes = self._get_nodes() * 1000
-        else:
-            self.nodes = nodes * 1000
-
-
-    def _get_elements(self):
-        """Gets the connectivity table from the SimData object and converts it
-           into a format Blender can read
-        """
-        connect = self.sim_data.connect[np.str_('connect1')]
-
-        elements = connect.T
-
-        zero_index_elements = elements -1 # Blender has a zero base index
-
-        return zero_index_elements
-
-    def _get_nodes(self):
-        """Gets the node coordinates from the SimData object and converts it
-           into a format Blender can read
-        """
-        nodes = self.sim_data.coords
-
-        zero_index_nodes = nodes
-
-        centred = centre_nodes(zero_index_nodes)
-
-        return centred
 
     def _get_spat_dim(self):
         nodes = self.sim_data.coords

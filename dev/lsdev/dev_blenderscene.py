@@ -82,12 +82,6 @@ def set_origin(part):
         bpy.ops.object.select_all(action='DESELECT')
         part.select_set(True)
         bpy.ops.object.origin_set(type='ORIGIN_CENTER_OF_MASS')
-        # dimensions = part.dimensions
-        # z_location = int(dimensions[2])
-        # if z_location != 0:
-        #     location = (0, 0, (0 - z_location))
-        #     part.location(location)
-
 
 
 
