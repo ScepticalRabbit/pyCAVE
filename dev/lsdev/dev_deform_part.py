@@ -4,7 +4,8 @@ import bpy
 import pyvale
 import mooseherder as mh
 from mooseherder import SimData
-from dev_partblender import BlenderPart, centre_nodes
+from dev_partblender import BlenderPart
+from dev_blenderscene import set_origin
 
 class DeformMesh:
     def __init__(self,pv_surf, spat_dim, components):
@@ -21,7 +22,6 @@ class DeformMesh:
                 added_disp[:, dim] = added_disp_1d * 1000
                 dim += 1
             deformed_nodes = nodes + added_disp
-            # deformed_nodes = centre_nodes(deformed_nodes)
             return deformed_nodes
         else:
             return None
@@ -57,6 +57,10 @@ class DeformPart:
         for i in range(len(self.part.data.vertices)):
             if i < n_nodes_layer:
                 sk.data[i].co = self.deformed_nodes[i]
+
+        # TODO: Centre part on origin
+        
+
         return self.part
 
 
