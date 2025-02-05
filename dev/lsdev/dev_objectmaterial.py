@@ -19,7 +19,7 @@ class BlenderMaterial():
         self.tree = None
         self.nodes = None
 
-    def _uv_unwrap(self):
+    def _uv_unwrap(self, FOV_mm):
         """Method to UV unwrap object before adding material.
            Object needs to be unwrapped for image texture to apply to it
         """
@@ -27,7 +27,11 @@ class BlenderMaterial():
         bpy.context.view_layer.objects.active = self.object
         bpy.ops.object.mode_set(mode='EDIT')
         bpy.ops.mesh.select_all(action='SELECT')
-        bpy.ops.uv.cube_project(correct_aspect=True)
+        FOV_mm = FOV_mm
+        cube_size = FOV_mm / 1
+        bpy.ops.uv.cube_project(scale_to_bounds = False, correct_aspect=True, cube_size = cube_size)
+        print(f"{FOV_mm=}")
+        print(f"{cube_size=}")
         bpy.ops.object.mode_set(mode='OBJECT')
         self.object.select_set(False)
 
@@ -68,10 +72,12 @@ class BlenderMaterial():
         if obj:
             obj.active_material = self.mat
 
-    def add_material(self):
+        return tex_image
+
+    def add_material(self, FOV_mm):
         self._clear_nodes()
-        self._set_image_texture()
-        self._uv_unwrap()
+        tex_image = self._set_image_texture()
+        self._uv_unwrap(FOV_mm)
 
         return self.mat
 
