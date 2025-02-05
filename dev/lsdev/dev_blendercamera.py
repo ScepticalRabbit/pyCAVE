@@ -35,6 +35,16 @@ class CameraBlender():
         self.sensor_size[1] = (self.camera_data.sensor_px[1] *
                                            (self.camera_data.px_size / 1000 ))
 
+    def calc_FOV_mm(self):
+        working_dist = np.sqrt(self.camera_data.position[0]**2 +
+                               self.camera_data.position[1]**2 +
+                               self.camera_data.position[2]**2)
+        FOV_mm = (((working_dist - self.camera_data.focal_length)
+                  / self.camera_data.focal_length) *
+                  (self.camera_data.px_size / 1000) *
+                  self.camera_data.sensor_px[0])
+        return FOV_mm
+
     def _calc_FOV_angle(self):
         working_dist = np.sqrt(self.camera_data.position[0]**2 +
                                self.camera_data.position[1]**2 +
@@ -56,8 +66,8 @@ class CameraBlender():
         bpy.context.collection.objects.link(camera)
 
 
-        camera.location = (self.camera_data.part_dimension[0]/2 + self.camera_data.position[0],
-                           self.camera_data.part_dimension[1]/2 + self.camera_data.position[1],
+        camera.location = (self.camera_data.position[0],
+                           self.camera_data.position[1],
                            self.camera_data.position[2])
         camera.rotation_mode = 'XYZ' # TODO: Make this a variable with diff options
         camera.rotation_euler = self.camera_data.orientation
