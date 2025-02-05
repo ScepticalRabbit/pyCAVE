@@ -83,7 +83,7 @@ class BlenderPart:
 
     def _simdata_to_pvsurf(self, components, spat_dim):
         # TODO: Add flag for triangulating mesh
-        self.sim_data.coords = self.sim_data.coords * 1000
+        self.sim_data.coords = centre_nodes(self.sim_data.coords * 1000)
         (pv_grid, pv_grid_vis) = pyvale.conv_simdata_to_pyvista(self.sim_data,
                                                                 components,
                                                                 spat_dim=spat_dim)
