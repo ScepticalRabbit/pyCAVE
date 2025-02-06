@@ -110,7 +110,8 @@ _Error map at the final timestep for smaller displacement case with mesh size of
 Notably, for a mesh size of larger than 100x50, the magnitude of error sits below the value of the noisefloor. Therefore, even the more extreme values of the error can be explained as noise.  
 The average value of error at the last timestep is around 0.228 times the noisefloor, well below the threshold for noise.  
 
-| Average error normalised by noisefloor  |
+|            | 16x8 | 50x25 | 100x50 | 200x100 |
+| -----------|------|-------|--------|---------|
 |Larger disp | 2.02 | 0.737 | 0.684  | 0.677   |
 | Smaller disp | 0.331| 0.230 | 0.228  | 0.228  |
 
