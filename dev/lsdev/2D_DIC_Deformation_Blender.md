@@ -95,7 +95,7 @@ Using a finer mesh also reveals the true nature of the error map, as it can be s
 
 When considering the mesh with size 200x100, the maximum error is around 10 times the noisefloor, however the average noise is 0.677 times the noisefloor - meaning it can simply be seen as noise.  
 
-_Smaller displacement function_:
+_Smaller displacement function_:   
 The same relationship between mesh size and error was also seen for the smaller displacement function.  
 
 ![Small case 50x25](./example_images/small_case_50x25.png)   
@@ -111,6 +111,7 @@ Notably, for a mesh size of larger than 100x50, the magnitude of error sits belo
 The average value of error at the last timestep is around 0.228 times the noisefloor, well below the threshold for noise.  
 
 |                                      | Larger disp                     | Smaller disp                    |
+| -------------------------------------|---------------------------------|---------------------------------|
 |                                      | 16x8 | 50x25 | 100x50 | 200x100 | 16x8 | 50x25 | 100x50 | 200x100 |
 | -------------------------------------|------|-------|--------|---------|------|-------|--------|---------|
 Average error normalised by noisefloor | 2.02 | 0.737 | 0.684  | 0.677   | 0.331| 0.230 | 0.228  | 0.228   |
