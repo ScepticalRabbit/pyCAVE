@@ -81,7 +81,7 @@ When using finer meshes, it can be seen that any artefacts from the mesh size ar
 Using a finer mesh also reveals the true nature of the error map, as it can be seen to be noise, instead of having areas of relatively larger error
 - It can also be seen that the maximum error is also a function of this mesh size, so error can be more accurately determined with a smaller mesh  
 
-When considering the mesh with size 200x100, the maximum error is around 10 times the noisefloor, however the average noise is 0.677 times the noisefloor - meaning it can simply be seen as noise.  
+Even though the average error is only around 0.677 times the noisefloor, the error map is not just noise, it has higher error at the right hand side of the image. Therefore, care should be taken when using this method for large deformations.  
 
 _Smaller displacement function_:   
 The same relationship between mesh size and error was also seen for the smaller displacement function.  

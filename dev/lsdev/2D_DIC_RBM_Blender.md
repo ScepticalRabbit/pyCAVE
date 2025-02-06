@@ -53,7 +53,6 @@ These images were run through MatchID (with the same DIC parameters) to compare 
 | 0.7                 |  0.699994                                         |  0.700011                                              |
 | 0.8                 |  0.799997                                         |  0.800019                                              |
 | 0.9                 |  0.900002                                         |  0.900002                                              |
-| :-----------------: | :-----------------------------------------------: | :----------------------------------------------------: |
 | Average error (%)   | 1.90E-03                                          | 2.25E-03                                               |
 
 
@@ -61,7 +60,7 @@ This shows that the displacement that MatchID calculates is very close to the 't
 The average errors between the imposed displacement and MatchID calculated displacements are very low, and the deviation of the MatchID displacement from the imposed displacement is lower than the noise-floor, so can be considered just noise.  
 The visualisation of the data confirms this, as no displacement fields are seen, only noise (see below).  
 
-![MatchID rigid body motion data view](./example_images/Case18_rbm_MatchID.png)  
+![MatchID rigid body motion data view](./example_images/RBM_matchid.png)  
 
 
 
