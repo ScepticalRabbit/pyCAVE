@@ -2,20 +2,6 @@
 
 After verifying the accuracy of Blender-produced images using rigid body motion images, images in which the object within was deforming were rendered.  
 
-
-## Contents
-- How set deformation
-- How compare - using image deformation  
-- Explain simcases chosen - all 2D so no out-of-plane motion 
-- Using simple analytical field - has known analytical solution
-- Use simple field at 2 scales - impact on error
-- Simple simcase with shearing
-- Case18 from pyvale simcases
-- Show error maps
-- Discuss error
-- Discuss impact of DIC params - further investigation can be done
-- Talk next steps - implementing 2 camera system to produce stereo DIC images?
-
 ## How deformation is set to the object in Blender  
 The SimData object was used to store not only the mesh data, but also the deformation data, as this meant that Blender code could be integrated into `pyvale`.  
 In order to deform the object, the displacements stored in the SimData object were applied to each individual node.  
@@ -31,10 +17,12 @@ The same simulation exodus file was used for both the Blender and image deformat
 The image deformation tool that was used was the one within `pyvale`. This tool has already been benchmarked against MatchID's own image deformation module, so benchmarking the Blender image rendering against it is deemed to be sufficient.  
 It should be noted that in order to accurately compare the data between the Blender images and image deformation images, the ROI had to be exactly the same, otherwise interpolation errors between the subsets caused false errors between the datasets.
 
-#### How the datasets were compared
+#### How the datasets were compared  
+The quantity of interest compared is the horizontal displacement, as this was directly imposed to the object in Blender.   
 The image deformation and Blender datasets were compared within MatchID (the image deformation data was subtracted from the Blender data) and this full-field data was extracted to python for further analysis.  
 The full-field data was plotted, to visualise the error across the whole ROI.    
 When analysing the error maps, the magnitude of error was related to a 'noisefloor' value. This noisefloor for all cases is taken to be 0.01 pixels.  
+For the cases with larger errors, the error data was made positive, and plotted with a maximum value of 4.2 times the noisefloor.   
 
 ## Chosen simulation cases  
 Four initial simulation cases were chosen as benchmarks:
@@ -145,7 +133,7 @@ Simulation case 18 had a displacement field with the pattern below:
 
 
 The error map for simulation case 18 can be seen to just be noise, with no clear deformation patterns.  
-It can be seen that there is an area of higher error at the top-left corner of the image, however this can be explained by DIC processing giving relatively larger errors at the ROI edges.  
+It can be seen that there is an area of higher error at the top-left corner of the image, however this is likely due to the mesh coarseness, and could be altered by making the mesh finer.  
 From the error map, you can see that most of the error is lower than the noise-floor, showing that the existing error is due to noise.  
 It should be noted that the error maps for each timestep are very similar, with the final timestep being chosen as an example, as it has the largest level of error.  
 
