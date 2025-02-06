@@ -113,7 +113,8 @@ The average value of error at the last timestep is around 0.228 times the noisef
 |            | 16x8 | 50x25 | 100x50 | 200x100 |
 | -----------|------|-------|--------|---------|
 |Larger disp | 2.02 | 0.737 | 0.684  | 0.677   |
-| Smaller disp | 0.331| 0.230 | 0.228  | 0.228  |
+| Smaller disp | 0.331| 0.230 | 0.228  | 0.228  |   
+_The average error for the final timestep normalised by the noisefloor, for different mesh sizes_   
 
 
 ### Shearing simulation case  
