@@ -106,6 +106,23 @@ The average value of error at the last timestep is around 0.228 times the noisef
 _The average error for the final timestep normalised by the noisefloor, for different mesh sizes_   
 
 
+#### Comparison to reference solution  
+The results from processing these images were also compared to the reference solution.   
+This solution was created by applying the displacement function across a matrix.   
+However, this method may not be accurate as it is possible that the ROI is not the one assumed, and so there are interpolation errors present (as each subset is not be compared to its counterpart).    
+For more accurate benchmarking, comparison to image deformation was used, as they both contain errors from the DIC processing, so any error present between them is due to the image rendering process.    
+
+Error maps between blender results and reference solution (for small displacement function, with mesh errors removed):   
+- All error maps between blender results and the refernce solution showed the same pattern.  
+- Comparison to image deformation displacements also showed this same pattern, so it is likely that this error is due to the DIC processing.   
+
+![Comparison between blender and refernce](./example_images/blender_reference_comparison.svg)   
+_Comparison between Blender displacements and the reference solution_    
+
+![Comparison between imagedef and reference](./example_images/imagedef_reference_comparison.svg)    
+_Comparison between image deformation displacements and the reference solution_     
+
+
 ### Shearing simulation case  
 The shearing simulation case had a displacement field with the pattern below: 
 
