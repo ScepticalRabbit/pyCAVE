@@ -39,12 +39,10 @@ def main() -> None:
     scene.set_part_location(part, part_location)
     scene.set_part_rotation(part, part_rotation)
 
-    mat_data = MaterialData()
-    image_path = '/home/lorna/pyvale/src/pyvale/data/optspeckle_2464x2056px_spec5px_8bit_gblur1px.tiff'
-    mat = scene.add_material(mat_data, part, image_path)
+
 
     sensor_px = (2464, 2056)
-    cam_position = (0, 0, 350)
+    cam_position = (0, 0, 400)
     focal_length = 25.0
     cam_data = CameraData(sensor_px=sensor_px,
                           position=cam_position,
@@ -63,13 +61,18 @@ def main() -> None:
 
     light = scene.add_light(light_data)
 
+    mat_data = MaterialData()
+    # image_path = '/home/lorna/pyvale/src/pyvale/data/optspeckle_2464x2056px_spec5px_8bit_gblur1px.tiff'
+    image_path = '/home/lorna/Downloads/speckle_3000.bmp'
+    mat = scene.add_material(mat_data, part, image_path, cam_data)
+
     #---------------------------------------------------------------------------
     # Rendering images
-    image_path = Path.cwd() / 'dev/lsdev/rendered_images/case18_gauss/non-gauss'
+    image_path = Path.cwd() / 'dev/lsdev/rendered_images/case18_rbm/New speckle blender'
     output_path = image_path / 'RBM.txt'
 
-    step = 0.04485 / 10
-    x_max = 0.04485 + (step)
+    step = 0.1
+    x_max = 1
     x_lims = [0, x_max]
     rigidbodymotion = RigidBodyMotion(part, step, part_location, image_path, output_path, cam_data)
     rigidbodymotion.rigid_body_motion_x(x_lims, part)

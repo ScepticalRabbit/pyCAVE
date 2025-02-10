@@ -12,12 +12,12 @@ from dev_lightingblender import LightData, LightType
 from dev_objectmaterial import MaterialData
 
 def main() -> None:
-    data_path = Path('src/pyvale/simcases/case22_out.e')
+    data_path = Path('src/pyvale/data/case17_out.e')
     data_reader = mh.ExodusReader(data_path)
     sim_data = data_reader.read_all_sim_data()
 
     dir = Path.cwd() / 'dev/lsdev/blender_files'
-    filename = 'case22.blend'
+    filename = 'case17.blend'
     filepath = dir / filename
     all_files = os.listdir(dir)
     for ff in all_files:
@@ -36,15 +36,14 @@ def main() -> None:
     part, pv_surf, spat_dim, components = scene.add_part(sim_data=sim_data)
     scene.set_part_location(part=part, location=part_location)
     scene.set_part_rotation(part=part, rotation=part_rotation)
-    print(f"{part.data.attributes=}")
+    print(f"{part.dimensions=}")
 
     mat_data = MaterialData()
-    # image_path = str(Path('dev/lsdev/rendered_images/blender_image_texture.tiff'))
-    image_path = '/home/lorna/speckle_generator/images/blender_image_texture_rect.tiff'
+    image_path = '/home/lorna/pyvale/src/pyvale/data/optspeckle_2464x2056px_spec5px_8bit_gblur1px.tiff'
     mat = scene.add_material(mat_data, part, image_path)
 
     sensor_px = (2464, 2056)
-    cam_position = (0, 0, 500)
+    cam_position = (0, 0, 250)
     focal_length = 15.0
     cam_data = CameraData(sensor_px=sensor_px,
                           position=cam_position,
@@ -58,7 +57,8 @@ def main() -> None:
     energy = 200 * (10)**3
     light_data = LightData(type=type,
                            position=light_position,
-                           energy=energy)
+                           energy=energy,
+                           part_dimension=part.dimensions)
 
     light = scene.add_light(light_data)
 

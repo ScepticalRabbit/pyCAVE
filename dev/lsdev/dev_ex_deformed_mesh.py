@@ -14,12 +14,14 @@ from dev_deform_part import DeformMesh, DeformPart
 
 def main() -> None:
     # Making Blender scene
-    data_path = Path('src/pyvale/data/case18_1_out.e')
+    # data_path = Path('src/pyvale/simcases/case18_out.e')
+    data_path = Path('/home/lorna/mooseherder/scripts/moose/shear_ex_out.e')
     data_reader = mh.ExodusReader(data_path)
     sim_data = data_reader.read_all_sim_data()
 
+
     dir = Path.cwd() / 'dev/lsdev/blender_files'
-    name = 'case_18_deformed' # Give this better name
+    name = 'shear_100x50' # Give this better name
     filename = name + '.blend'
     filepath = dir / filename
     all_files = os.listdir(dir)
@@ -32,21 +34,16 @@ def main() -> None:
     scene = BlenderScene()
 
     part_location = (0, 0, 0)
-    angle = np.radians(90)
-    part_rotation = (0, 0, 0)
+    angle = np.radians(0)
+    part_rotation = (0, 0, angle)
 
     part, pv_surf, spat_dim, components = scene.add_part(sim_data=sim_data)
     scene.set_part_location(part, part_location)
     scene.set_part_rotation(part, part_rotation)
 
-
-    mat_data = MaterialData()
-    image_path = '/home/lorna/pyvale/src/pyvale/data/optspeckle_2464x2056px_spec5px_8bit_gblur1px.tiff'
-    mat = scene.add_material(mat_data, part, image_path)
-
-    sensor_px = (2452, 2056)
-    cam_position = (0, 0, 350)
-    focal_length = 25
+    sensor_px = (2464, 2056)
+    cam_position = (0, 0, 250)
+    focal_length = 15
     cam_data = CameraData(sensor_px=sensor_px,
                           position=cam_position,
                           focal_length=focal_length,
@@ -64,10 +61,15 @@ def main() -> None:
 
     light = scene.add_light(light_data)
 
+    mat_data = MaterialData()
+    # image_path = '/home/lorna/pyvale/src/pyvale/data/optspeckle_2464x2056px_spec5px_8bit_gblur1px.tiff'
+    image_path = '/home/lorna/pyvale/dev/lsdev/speckle_3000.bmp'
+    mat = scene.add_material(mat_data, part, image_path, cam_data)
+
     #---------------------------------------------------------------------------
     # Rendering images
     render_start_time = time.perf_counter()
-    image_path = Path.cwd() / 'dev/lsdev/rendered_images/case18_static/non-gauss'
+    image_path = Path.cwd() / 'dev/lsdev/rendered_images/shear_case/100x50/blender'
     output_path = str(image_path) + '/' + name +'_report.txt'
 
 
@@ -78,9 +80,8 @@ def main() -> None:
                     cam_data=cam_data)
 
     render_counter = 0
-    for i in range(10):
-        render_name = 'static_image' + str(i)
-        render.render_image(render_name, render_counter, part)
+    render_name = 'ref_image'
+    render.render_image(render_name, render_counter, part)
 
     #---------------------------------------------------------------------------
     # Deform mesh
@@ -99,9 +100,9 @@ def main() -> None:
             print(f"{timestep=}")
             print(f"{part.dimensions=}")
 
-            render_name = 'def_sim_data'
-            # render.render_image(render_name, timestep, part)
-            timestep += 1 # Adding at start of loop as timestep = 0 is the original mesh
+            render_name = 'def_larger_def'
+            render.render_image(render_name, timestep, part)
+
 
 
     render_end_time = time.perf_counter()
