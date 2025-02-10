@@ -48,7 +48,7 @@ The error maps produced are the difference between the blender and image deforma
 Both sets of error maps are largely points around a single value, with areas of higher error in the top-right and bottom-left corners.   
 These larger errors manifest themselves as squares, and this is due to the fact the mesh used was very coarse.  
 
-![Small case error map](./images/linear_small_initial_mesh.png)   
+![Small case error map](./images/linear_small_initial_mesh.svg)   
 _Error map for the small linear displacement case at the final timestep_  
 
 ![Large case error map](./images/linear_large_initial_mesh.png)   
