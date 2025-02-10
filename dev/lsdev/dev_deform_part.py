@@ -1,11 +1,5 @@
 import numpy as np
-from pathlib import Path
 import bpy
-import pyvale
-import mooseherder as mh
-from mooseherder import SimData
-from dev_partblender import BlenderPart
-from dev_blenderscene import set_origin
 
 class DeformMesh:
     def __init__(self,pv_surf, spat_dim, components):
@@ -58,8 +52,6 @@ class DeformPart:
             if i < n_nodes_layer:
                 sk.data[i].co = self.deformed_nodes[i]
 
-        # TODO: Centre part on origin
-        
 
         return self.part
 

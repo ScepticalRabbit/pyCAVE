@@ -30,8 +30,6 @@ class BlenderMaterial():
         FOV_mm = FOV_mm
         cube_size = FOV_mm / 1
         bpy.ops.uv.cube_project(scale_to_bounds = False, correct_aspect=True, cube_size = cube_size)
-        print(f"{FOV_mm=}")
-        print(f"{cube_size=}")
         bpy.ops.object.mode_set(mode='OBJECT')
         self.object.select_set(False)
 
