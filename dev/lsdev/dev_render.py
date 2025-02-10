@@ -53,9 +53,11 @@ class Render:
 
         bpy.ops.render.render(write_still=True)
 
-    def render_image(self, name: int, image_count: int, part):
-
-        file_name = name + '_' + str(image_count) + '.tiff'
+    def render_image(self, name: int, image_count: int, part, cam_count: int | None = None):
+        if cam_count is not None:
+            file_name = name + '_' + str(image_count) + '_' + str(cam_count) + '.tiff'
+        else:
+            file_name = name + '_' + str(image_count) + '.tiff'
         cores = int(cpu_count())
         self.render_parameters(file_name, cores)
         self._write_progress(image_count, part)
@@ -71,6 +73,9 @@ class Render:
         report.write('\nPart rotation: ' + str(part.rotation_euler))
         report.write('\n')
         report.close()
+
+
+
 
 
 

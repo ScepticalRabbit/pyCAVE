@@ -5,6 +5,7 @@ from dev_blendercamera import CameraData, CameraBlender
 from dev_lightingblender import LightData, BlenderLight
 from dev_partblender import BlenderPart
 from dev_objectmaterial import MaterialData, BlenderMaterial
+from dev_stereo import StereoData, Stereo
 
 class BlenderScene:
     def __init__(self):
@@ -42,6 +43,11 @@ class BlenderScene:
         camera = cameramaker.add_camera()
 
         return camera
+
+    def add_stereo_system(self, stereo_data: StereoData, scene):
+        stereromaker = Stereo(stereo_data)
+        stereromaker.add_stereo_system(scene)
+
 
     def add_part(self, filename:str | None = None, sim_data: SimData | None = None):
         # TODO: Change outputs of method to have more under hood
