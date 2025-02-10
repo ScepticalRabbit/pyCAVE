@@ -71,23 +71,33 @@ def main() -> None:
     disp = np.array((disp_x[:,ff],disp_y[:,ff])).T
     print(f"{disp.shape=}")
 
-    (def_image,
-     def_image_subpx,
-     subpx_disp_x,
-     subpx_disp_y,
-     def_mask) = pyvale.ImageDef2D.deform_one_image(upsampled_image,
-                                                    cam_data,
-                                                    id_opts,
-                                                    coords,
-                                                    disp,
-                                                    image_mask,
-                                                    print_on=True)
+    # (def_image,
+    #  def_image_subpx,
+    #  subpx_disp_x,
+    #  subpx_disp_y,
+    #  def_mask) = pyvale.ImageDef2D.deform_one_image(upsampled_ref_image,
+    #                                                 cam_data,
+    #                                                 id_opts,
+    #                                                 coords,
+    #                                                 disp,
+    #                                                 image_mask,
+    #                                                 print_on=True)
+
+    pyvale.ImageDef2D.deform_images_to_disk(cam_data,
+                                            upsampled_image,
+                                            coords,
+                                            connectivity,
+                                            disp_x,
+                                            disp_y,
+                                            image_mask,
+                                            id_opts
+                                            print_on=True)
 
     #pyvale.ImageDefDiags.plot_speckle_image(image_input)
     #pyvale.ImageDefDiags.plot_speckle_image(image_mask)
     #pyvale.ImageDefDiags.plot_speckle_image(upsampled_image)
-    pyvale.ImageDefDiags.plot_speckle_image(def_image)
-    plt.show()
+    # pyvale.ImageDefDiags.plot_speckle_image(def_image)
+    # plt.show()
 
 
 if __name__ == "__main__":

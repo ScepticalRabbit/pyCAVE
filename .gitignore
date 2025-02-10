@@ -3,6 +3,7 @@
 # vscode / venv
 .vscode/
 .pyvale-env/
+.venv/
 
 # Output files
 *.npy
