@@ -35,7 +35,7 @@ class Render:
                           file_name: str,
                           cores: int):
         bpy.context.scene.render.engine = self.render_data.engine.value
-        bpy.context.scene.view_settings.look = 'AgX - Greyscale'
+        bpy.context.scene.render.image_settings.color_mode = 'BW'
         self.scene.render.resolution_x = self.cam_data.sensor_px[0]
         self.scene.render.resolution_y = self.cam_data.sensor_px[1]
         self.scene.render.filepath =  str(self.image_path / file_name)
