@@ -118,12 +118,5 @@ class CameraBlender():
 
         return camera
 
-    def stereo_setup(self,
-                     stereo_angle: float,
-                     orientation1,):
-        # TODO: Write method to create stereo setup given params
-        self.add_camera()
-        self.set_orientation()
-        self.add_camera()
 
 
