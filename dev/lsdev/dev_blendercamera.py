@@ -20,6 +20,7 @@ class CameraData:
     c0 : float | None = None
     c1 : float | None = None
     part_dimension: np.ndarray | None = None
+    name: str | None = 'cam'
 
 
 class CameraBlender():
@@ -45,6 +46,18 @@ class CameraBlender():
                   self.camera_data.sensor_px[0])
         return FOV_mm
 
+    def _calc_mm_px_conversion(self):
+        working_dist = np.sqrt(self.camera_data.position[0]**2 +
+                               self.camera_data.position[1]**2 +
+                               self.camera_data.position[2]**2)
+        FOV_mm = (((working_dist - self.camera_data.focal_length)
+                  / self.camera_data.focal_length) *
+                  (self.camera_data.px_size / 1000) *
+                  self.camera_data.sensor_px[0])
+        mm_per_px = FOV_mm / self.camera_data.sensor_px[0]
+
+        return mm_per_px
+
     def _calc_FOV_angle(self):
         working_dist = np.sqrt(self.camera_data.position[0]**2 +
                                self.camera_data.position[1]**2 +
@@ -61,8 +74,8 @@ class CameraBlender():
         return FOV_deg
 
     def add_camera(self):
-        new_cam = bpy.data.cameras.new('Camera')
-        camera = bpy.data.objects.new('Camera', new_cam)
+        new_cam = bpy.data.cameras.new(self.camera_data.name)
+        camera = bpy.data.objects.new(self.camera_data.name, new_cam)
         bpy.context.collection.objects.link(camera)
 
 
