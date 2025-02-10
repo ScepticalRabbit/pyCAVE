@@ -37,21 +37,21 @@ All of these simulation cases were for 2D meshes, to ensure that no out-of-plane
 ### Linear displacement simulation case
 The linear displacement simulation case had a displacement field with the pattern below:
 
-![Linear function displacement field](./example_images/Small_linear_paraview.png)   
+![Linear function displacement field](./images/Small_linear_paraview.png)   
 
 Both cases had the same linear displacement applied, with the larger displacement case having a displacement of 10 times the magnitude of the smaller case.  
 The final deformation image for the larger linear displacement case can be seen below:  
-![Final deformation image](./example_images/linear_disp_large.tiff)    
+![Final deformation image](./images/linear_disp_large.tiff)    
 
 When comparing the error from the larger and small deformation cases, the pattern in the error maps is largely the same, however the magnitude of error for the larger deformation is an order of magnitude larger.  
 The error maps produced are the difference between the blender and image deformation data, divided by the threshold noise-floor (0.01 px), to see how much the error deviates from the noise-floor.  
 Both sets of error maps are largely points around a single value, with areas of higher error in the top-right and bottom-left corners.   
 These larger errors manifest themselves as squares, and this is due to the fact the mesh used was very coarse.  
 
-![Small case error map](./example_images/linear_small_initial_mesh.png)   
+![Small case error map](./images/linear_small_initial_mesh.png)   
 _Error map for the small linear displacement case at the final timestep_  
 
-![Large case error map](./example_images/linear_large_initial_mesh.png)   
+![Large case error map](./images/linear_large_initial_mesh.png)   
 _Error map for the large linear displacement case at the final timestep_  
 
 #### Effect of mesh fineness on error maps
@@ -65,13 +65,13 @@ Meshes with increasing elements were tested. The meshes sizes that were tested w
 _Larger displacement function_: 
 The different size meshes were all tested with the same environment in Blender, and with the same ROI in MatchID, so any differences in the results can be seen as due to the difference in mesh coarseness.   
 
-![Large case 50x25](./example_images/large_case_50x25.png)   
+![Large case 50x25](./images/large_case_50x25.png)   
 _Error map at the final timestep for larger displacement case with mesh size of 50x25_   
 
-![Large case 100x50](./example_images/large_case_100x50.png)   
+![Large case 100x50](./images/large_case_100x50.png)   
 _Error map at the final timestep for larger displacement case with mesh size of 100x50_   
 
-![Large case 200x100](./example_images/large_case_200x100.png)    
+![Large case 200x100](./images/large_case_200x100.png)    
 _Error map at the final timestep for larger displacement case with mesh size of 200x100_     
 
 When using finer meshes, it can be seen that any artefacts from the mesh size are gone, and the only full-field pattern left is noise.  
@@ -86,13 +86,13 @@ Even though the average error is only around 0.677 times the noisefloor, the err
 _Smaller displacement function_:   
 The same relationship between mesh size and error was also seen for the smaller displacement function.  
 
-![Small case 50x25](./example_images/small_case_50x25.png)   
+![Small case 50x25](./images/small_case_50x25.png)   
 _Error map at the final timestep for smaller displacement case with mesh size of 50x25_   
 
-![Small case 100x50](./example_images/small_case_100x50.png)   
+![Small case 100x50](./images/small_case_100x50.png)   
 _Error map at the final timestep for smaller displacement case with mesh size of 100x50_   
 
-![Small case 200x100](./example_images/small_case_200x100.png)   
+![Small case 200x100](./images/small_case_200x100.png)   
 _Error map at the final timestep for smaller displacement case with mesh size of 200x100_
 
 Notably, for a mesh size of larger than 100x50, the magnitude of error sits below the value of the noisefloor. Therefore, even the more extreme values of the error can be explained as noise.  
@@ -116,27 +116,27 @@ Error maps between blender results and reference solution (for small displacemen
 - All error maps between blender results and the refernce solution showed the same pattern.  
 - Comparison to image deformation displacements also showed this same pattern, so it is likely that this error is due to the DIC processing.   
 
-![Comparison between blender and refernce](./example_images/blender_reference_comparison.svg)   
+![Comparison between blender and refernce](./images/blender_reference_comparison.svg)   
 _Comparison between Blender displacements and the reference solution_    
 
-![Comparison between imagedef and reference](./example_images/imagedef_reference_comparison.svg)    
+![Comparison between imagedef and reference](./images/imagedef_reference_comparison.svg)    
 _Comparison between image deformation displacements and the reference solution_     
 
 
 ### Shearing simulation case  
 The shearing simulation case had a displacement field with the pattern below: 
 
-![Shearing disp field](./example_images/Shear_case_paraview.png)   
+![Shearing disp field](./images/Shear_case_paraview.png)   
  
 The initially tested images had the same issue as the linear displacement images, in that areas of larger displacements were found (relating to the coarse mesh).  
 However, the extremes of these errors were lower as compared to the  linear displacement cases. The error map for the final timestep can be seen below.  
 
-![Shear error map final timestep](./example_images/shear_error_map_16x8.png)   
+![Shear error map final timestep](./images/shear_error_map_16x8.png)   
 _Error map of shear case at the final timestep with the original mesh_  
 
 Since multiple artefacts of the mesh can be seen in this case's error maps, more images were generated using a finer mesh of size 100x50, since this was deemed to be adequate.  
 
-![Finer mesh error map](./example_images/shear_error_map_100x50.png)   
+![Finer mesh error map](./images/shear_error_map_100x50.png)   
 _Error map of shear case at the final timestep with a mesh of 100x50 elements_  
 
 It can be seen that the error map for this simulation case is much typical of noise when using a finer mesh. The extremes of the error are again below the noisefloor, meaning this error map can be regarded as noise.  
@@ -146,7 +146,7 @@ The average error (at the final timestep) when using this mesh is around 0.19 ti
 ### Case 18 simulation case  
 Simulation case 18 had a displacement field with the pattern below:  
 
-![Case 18 disp field](./example_images/case18_paraview.png)   
+![Case 18 disp field](./images/case18_paraview.png)   
 
 
 The error map for simulation case 18 can be seen to just be noise, with no clear deformation patterns.  
@@ -154,7 +154,7 @@ It can be seen that there is an area of higher error at the top-left corner of t
 From the error map, you can see that most of the error is lower than the noise-floor, showing that the existing error is due to noise.  
 It should be noted that the error maps for each timestep are very similar, with the final timestep being chosen as an example, as it has the largest level of error.  
 
-![Case 18 error map](./example_images/case18_error_map.png)   
+![Case 18 error map](./images/case18_error_map.png)   
 _Error map for the final timestep of case 18_  
 
 
